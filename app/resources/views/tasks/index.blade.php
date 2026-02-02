@@ -9,11 +9,12 @@
                     Things to do
                 </div>
                 <div class="col-1">
-
-                    <a href="/project1/tasks/create">
+                    <a href="{{ route('project1.tasks.create') }}">
                         <button type="button" class="btn btn-primary d-flex align-items-center">
                             <i class="fas fa-plus text-white mr-1"></i>
-                            Add</button></a>
+                            Add
+                        </button>
+                    </a>
                 </div>
             </div>
 
@@ -26,23 +27,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($tasks as $todo)
+                    @foreach ($tasks as $task)
                         <tr>
-                            <td>
-                                @if ($todo->completed)
+                            <td style="vertical-align: middle;">
+                                @if ($task->completed)
                                     <del>
-                                        {{$todo->title}}
+                                        {{$task->title}}
                                     </del>
                                 @else
-                                    {{$todo->title}}
+                                    {{$task->title}}
                                 @endif
                             </td>
                             <td>
-                                <a href="/project1/tasks/{{$todo->id}}/edit" class="btn btn-success"><i class="far fa-edit text-white">
-                                        Edit</a></i>
+                                <a href="{{ route('project1.tasks.edit', $task->id) }}" class="btn btn-success"><i class="far fa-edit text-white">Edit</i></a>
                             </td>
                             <td>
-                                <form action="/project1/tasks/{{$todo->id}}" method="POST">
+                                <form action="{{ route('project1.tasks.destroy', $task->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-danger" value="Delete">
